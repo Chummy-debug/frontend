@@ -285,3 +285,13 @@ export const PROJECT_DETAILS: Record<number, ProjectDetail> = {
       'radial-gradient(120% 125% at 76% 8%, var(--solar-24), transparent 60%), linear-gradient(145deg, var(--solar-12), var(--ink-06))',
   },
 }
+
+export function searchProjects(query: string): ProjectDetail[] {
+  const normalized = query.trim().toLocaleLowerCase()
+
+  return Object.values(PROJECT_DETAILS).filter(
+    (project) =>
+      project.name.toLocaleLowerCase().includes(normalized) ||
+      project.location.toLocaleLowerCase().includes(normalized),
+  )
+}
