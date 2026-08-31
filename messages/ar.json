@@ -108,7 +108,7 @@
     "cardFundedFromPool": "ممول من المجمع",
     "cardVerifiedAgo": "تم التحقق قبل {ago}",
     "emptyTitle": "لم يتم العثور على مشاريع",
-    "emptySub": "لا توجد مشاريع تطابق فئة \"{filter}\" في المجمع حالياً.",
+    "emptySub": "لا توجد مشاريع مطابقة في المجمع حالياً.",
     "loadMore": "عرض {count} المزيد",
     "showingCount": "عرض {shown} من {total} مشاريع"
   },
