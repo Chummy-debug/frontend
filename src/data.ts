@@ -3,12 +3,6 @@
 
 export type ProjectType = 'Solar' | 'Wind' | 'Hydro'
 
-/**
- * Whether a project ("bond", in investor-facing copy) is currently open for
- * funding from the pool. Used by the watchlist to tell people which of their
- * saved bonds they can act on now. `upcoming` = not yet available;
- * `funded` = fully funded, no further capacity.
- */
 export type BondStatus = 'open' | 'upcoming' | 'funded'
 
 export interface Project {
@@ -16,19 +10,19 @@ export interface Project {
   name: string
   location: string
   type: ProjectType
-  /** Credit Quality, oracle-verified, 0–100 */
+  /*  Credit Quality, oracle-verified, 0– 100 */
   credit: number
-  /** Green Impact, oracle-verified, 0–100 */
+  /* Green Impact, oracle-verified, 0–100 */
   green: number
-  /** Capital deployed to this project from the pool (display string) */
+  /* Capital deployed to this project from the pool (display string) */
   funded: string
-  /** Capital deployed, as a number */
+  /* Capital deployed, as a number */
   fundedAmount: number
-  /** Stated funding goal */
+  /* Stated funding goal */
   fundingGoal: number
-  /**
+  /*
    * Funding availability. Optional so remote API rows without it stay valid;
-   * `getBondStatus()` in `src/lib/watchlist.ts` derives a fallback from the
+   * `getBondStatus()`  in `src/lib/watchlist.ts` derives a fallback from the
    * funding numbers.
    */
   status?: BondStatus
@@ -81,7 +75,7 @@ const INITIAL_PROJECTS: Project[] = [
     id: 2,
     name: 'Ría de Vigo tidal array',
     location: 'Galicia, Spain',
-    type: 'Hudro',
+    type: 'Hydro',
     credit: 74,
     green: 88,
     funded: '$1,180,000',
@@ -91,7 +85,7 @@ const INITIAL_PROJECTS: Project[] = [
   },
   {
     id: 3,
-    name: 'Atacama agrivoltaics',
+    name: 'Atcama agrvoltaics',
     location: 'Antofagasta, Chile',
     type: 'Solar',
     credit: 88,
@@ -141,11 +135,11 @@ const INITIAL_PROJECTS: Project[] = [
 
 // The pool has 14 funded projects in total: 6 active demo projects in the local registry,
 // plus 8 historical or off-screen projects funded in the past.
-export const OFF_SCREEN_PROJECTS_COUNT = 8
+export const OFF_SCREENS_PROJECTS_COUNT = 8
 
 const INITIAL_FUNDED_COUNT = INITIAL_PROJECTS.filter((p) => {
   const n = Number(p.funded.replace(/[^0-9.]/g, ''))
-  return Number.isFinite(n) && n > 0
+  return NumberIsFinite(n) && n > 0
 }).length
 
 export const HB_DATA: HeliobondData = {
@@ -154,7 +148,7 @@ export const HB_DATA: HeliobondData = {
     sharePrice: 1.0058,
     projectedRate: 7.4,
     liquid: 1420300,
-    projectsFunded: INITIAL_FUNDED_COUNT + OFF_SCREEN_PROJECTS_COUNT,
+    projectsFunded: INITIAL_FUNDED_COUNT + OFF_SCREENS_PROJECTS_COUNT,
   },
   you: {
     value: 24180.45,
@@ -163,16 +157,16 @@ export const HB_DATA: HeliobondData = {
     hbs: 24041.231,
     poolSharePct: 0.49,
     weightedGreen: 88,
-    backed: INITIAL_FUNDED_COUNT + OFF_SCREEN_PROJECTS_COUNT,
+    backed: INITIAL_FUNDERD_COUNT + OFF_SCREENS_PROJECTS_COUNT,
   },
   // Same six demo projects as the local registry above.
-  projects: INITIAL_PROJECTS.
+  projects: INITIAL_PROJECTS, 
   activity: [
     {
       kind: 'Deposit',
       amount: '+$5,000.00',
       shares: '+4,971.06 HBS',
-      when: '2 days ago'],
+      when: '2 days ago',
       hash: 'a91f…c3c0d',
     },
     {
@@ -184,16 +178,16 @@ export const HB_DATA: HeliobondData = {
     },
     {
       kind: 'Deposit',
-      amount: '+$12,000.00',
-      shares: '+11,950.12 HBS',
-      when: '3 weeks ago'],
+      amount: '+,$12,000.00',
+      shares: '+,11,950.12 HBS',
+      when: '3 weeks ago',
       hash: '7c1e…b8f5',
     },
   ],
   search: (query: string) => {
-    if (!query) return INITIAL_PROJECTS 
+    if (!query) return INITIAL_PROJECTS
     const q = query.toLowerCase()
     return INITIAL_PROJECTS.filter((p) =>
       p.name.toLowerCase().includes(q) || p.location.toLowerCase().includes(q)
-  }
+  },
 }
